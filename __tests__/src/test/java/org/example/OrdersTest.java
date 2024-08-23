@@ -23,6 +23,11 @@ import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.example.helpers.JsonHelper;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
+
+@org.junit.jupiter.api.Order(11)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OrdersTest {
     public static ApiClient defaultClient = null;
     public static OrdersApi ordersApi = null;
@@ -64,8 +69,7 @@ public class OrdersTest {
             String snapshot = JsonHelper.readJsonFile(snapshotPath);
             assertNotNull(orderResponseBody);
             JSONAssert.assertEquals(snapshot, responseBodyJson, false);
-        } catch (ApiException | IOException | JSONException
-                | JsonSyntaxException e) {
+        } catch (ApiException | IOException | JSONException | JsonSyntaxException e) {
             fail();
         }
 

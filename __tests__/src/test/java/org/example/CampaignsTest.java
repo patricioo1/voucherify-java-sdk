@@ -73,7 +73,7 @@ public class CampaignsTest {
 
     @Test
     @Order(2)
-    public void createDiscountCampaign() {
+    public void createDiscountCampaignTest() {
         Discount discount = new Discount();
         discount.setType(Discount.TypeEnum.AMOUNT);
         discount.setAmountOff(BigDecimal.valueOf(1));
@@ -117,7 +117,7 @@ public class CampaignsTest {
 
     @Test
     @Order(4)
-    public void addVoucherToCampaign() {
+    public void addVoucherToCampaignTest() {
         try {
             Integer vouchersCount = 1; // Integer | Number of vouchers that should be added.
             CampaignsVouchersCreateInBulkRequestBody campaignsVouchersCreateInBulkRequestBody = new CampaignsVouchersCreateInBulkRequestBody();
@@ -147,7 +147,7 @@ public class CampaignsTest {
 
     @Test
     @Order(5)
-    public void addVouchersToCampaign() {
+    public void addVouchersToCampaignTest() {
         try {
             Integer vouchersCount = 2; // Integer | Number of vouchers that should be added.
             CampaignsVouchersCreateInBulkRequestBody campaignsVouchersCreateInBulkRequestBody = new CampaignsVouchersCreateInBulkRequestBody(); // CampaignsVouchersCreateInBulkRequestBody

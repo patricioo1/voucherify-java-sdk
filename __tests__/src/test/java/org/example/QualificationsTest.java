@@ -4,6 +4,8 @@ import com.google.gson.JsonSyntaxException;
 import org.example.data.Voucherify;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
 import voucherify.client.ApiClient;
 import voucherify.client.ApiException;
 import voucherify.client.api.QualificationsApi;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@org.junit.jupiter.api.Order(9) //Multiple Order type
+@org.junit.jupiter.api.Order(10)
 public class QualificationsTest {
     public static ApiClient defaultClient = null;
     public static QualificationsApi qualifications = null;
@@ -46,7 +48,8 @@ public class QualificationsTest {
 
             qualificationsCheckEligibilityRequestBody.setOrder(order);
 
-            QualificationsCheckEligibilityResponseBody responseBody = qualifications.checkEligibility(qualificationsCheckEligibilityRequestBody);
+            QualificationsCheckEligibilityResponseBody responseBody = qualifications
+                    .checkEligibility(qualificationsCheckEligibilityRequestBody);
 
             assertFalse(responseBody.getRedeemables().getData().isEmpty());
         } catch (ApiException | JsonSyntaxException e) {

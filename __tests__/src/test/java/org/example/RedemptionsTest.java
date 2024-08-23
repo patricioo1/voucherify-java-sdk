@@ -5,6 +5,8 @@ import com.google.gson.JsonSyntaxException;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
 import voucherify.client.ApiClient;
 import voucherify.client.api.*;
 import voucherify.client.ApiException;
@@ -24,7 +26,8 @@ import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.example.helpers.JsonHelper;
 
-@org.junit.jupiter.api.Order(8)
+@org.junit.jupiter.api.Order(9)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RedemptionsTest {
     public static ApiClient defaultClient = null;
     public static RedemptionsApi redemptions = null;

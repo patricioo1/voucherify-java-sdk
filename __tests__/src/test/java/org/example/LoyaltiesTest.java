@@ -5,6 +5,8 @@ import org.example.data.Voucherify;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
 import voucherify.client.ApiClient;
 import voucherify.client.ApiException;
 import voucherify.client.api.CampaignsApi;
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @Order(5)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoyaltiesTest {
     public static ApiClient defaultClient = null;
     public static LoyaltiesApi loyalties = null;

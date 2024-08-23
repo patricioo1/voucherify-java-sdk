@@ -3,12 +3,17 @@ package org.example.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import voucherify.client.model.Category;
+import voucherify.client.model.Sku;
+
 public class Voucherify {
     private final Campaign couponCampaign;
     private final Campaign loyaltyCampaign;
     private final Customer customer;
     private final List<Product> products;
     private final Order order;
+    private final Category category;
+    private final Sku sku;
 
     private Voucherify() {
         couponCampaign = new Campaign();
@@ -16,6 +21,8 @@ public class Voucherify {
         customer = new Customer();
         products = new ArrayList<>();
         order = new Order();
+        category = new Category();
+        sku = new Sku();
     }
 
     private static class SingletonHolder {
@@ -44,5 +51,13 @@ public class Voucherify {
 
     public Order getOrder() {
         return order;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Sku getSku() {
+        return sku;
     }
 }

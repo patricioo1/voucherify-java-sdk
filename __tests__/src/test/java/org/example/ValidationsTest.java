@@ -1,10 +1,14 @@
 package org.example;
 
 import org.example.data.Voucherify;
+
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
 import voucherify.client.ApiClient;
 import voucherify.client.ApiException;
 import voucherify.client.api.CampaignsApi;
@@ -28,7 +32,8 @@ import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.example.helpers.JsonHelper;
 
-@org.junit.jupiter.api.Order(7) // Multiple Order type
+@org.junit.jupiter.api.Order(8)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ValidationsTest {
     public static ApiClient defaultClient = null;
     public static ValidationsApi validationsApi = null;
@@ -47,14 +52,16 @@ public class ValidationsTest {
     @org.junit.jupiter.api.Order(1)
     public void validateStackedInapplicableDiscountsTest() {
         String snapshotPath = "src/test/java/org/example/snapshots/Validations/InaplicableValidation.snapshot.json";
-        validateStackedDiscounts(getValidationsValidateInapplicableVouchersRequestBody(), snapshotPath);
+        validateStackedDiscounts(getValidationsValidateInapplicableVouchersRequestBody(),
+                snapshotPath);
     }
 
     @Test
     @org.junit.jupiter.api.Order(2)
     public void validateStackedApplicableDiscountsTest() {
         String snaphsotPath = "src/test/java/org/example/snapshots/Validations/ApplicableValidation.snapshot.json";
-        validateStackedDiscounts(getValidationsValidateApplicableVouchersRequestBody(), snaphsotPath);
+        validateStackedDiscounts(getValidationsValidateApplicableVouchersRequestBody(),
+                snaphsotPath);
     }
 
     @Test
@@ -69,10 +76,13 @@ public class ValidationsTest {
     private void validateStackedDiscounts(ValidationsValidateRequestBody requestBody, String snapshotPath) {
         try {
             ValidationsValidateResponseBody responseBody = validationsApi.validateStackedDiscounts(requestBody);
-            String responseBodyJson = JsonHelper.getObjectMapper().writeValueAsString(responseBody);
-            String snapshot = JsonHelper.readJsonFile(snapshotPath);
-            assertNotNull(responseBody);
-            JSONAssert.assertEquals(snapshot, responseBodyJson, false);
+
+            List<String> keysToRemove = List.of("id", "productId", "details", "trackingId", "requestId");
+
+            String filteredSnapshot = JsonHelper.validateSnapshotPayloads(snapshotPath, keysToRemove);
+            String filteredResponse = JsonHelper.validateClassPayloads(responseBody, keysToRemove);
+
+            JSONAssert.assertEquals(filteredSnapshot, filteredResponse, true);
         } catch (ApiException | IOException | JSONException | JsonSyntaxException e) {
             fail();
         }
